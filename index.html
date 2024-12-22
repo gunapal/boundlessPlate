@@ -3,181 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BoundlessPlate</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Boundless Plate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            font-family: 'Roboto', sans-serif;
-            color: #333;
+            font-family: 'Quicksand', sans-serif; /* Softer, rounded font */
+            color: #fff;
+            background-color: #000;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background-image: url('assets/background.webp');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
         }
 
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #f8f8f8;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #6b8e23;
-        }
-
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-        }
-
-        nav a:hover {
-            color: #6b8e23;
-        }
-
-        .hero {
             text-align: center;
-            padding: 50px;
-            background: url('https://via.placeholder.com/1920x600') no-repeat center center/cover;
+            padding: 40px 20px;
             color: white;
+            position: relative;
+            z-index: 1;
         }
 
-        .hero h1 {
-            font-size: 48px;
+        header h1 {
             margin: 0;
+            font-size: 100px; /* Updated to 100px */
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            font-family: 'Dancing Script', cursive;
         }
 
-        .hero p {
-            font-size: 20px;
-            margin: 20px 0;
+        .content {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
         }
 
-        .hero button {
-            padding: 10px 20px;
-            font-size: 18px;
-            color: white;
-            background-color: #6b8e23;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .hero button:hover {
-            background-color: #556b2f;
-        }
-
-        .menu {
-            padding: 50px;
+        .content h2 {
+            font-size: 28.8px; /* 20% bigger than original */
+            font-family: 'Playfair Display', serif; /* Changed font */
             text-align: center;
         }
 
-        .menu h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .menu-items {
+        .spices {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
+            margin-bottom: 30px;
         }
 
-        .menu-item {
-            width: 300px;
-            border: 1px solid #ddd;
+        .spice {
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease-in-out;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .menu-item img {
+        .spice img {
             width: 100%;
-            height: 200px;
+            height: 150px;
             object-fit: cover;
+            object-position: bottom;
+            border-radius: 10px;
         }
 
-        .menu-item h3 {
-            margin: 15px 0 10px;
-            font-size: 22px;
-            color: #6b8e23;
+        .spices.shrink .spice {
+            transform: scale(0.8);
+            opacity: 0.5;
         }
 
-        .menu-item p {
-            margin: 0 15px 15px;
-            color: #666;
+        .spices.shrink .spice.expanded {
+            transform: scale(1.2);
+            width: 100%;
+            text-align: left;
+            opacity: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        footer {
+        .expanded img {
+            height: auto;
+            max-width: 50%;
+            object-fit: contain;
+        }
+
+        .spice p {
+            font-family: 'Playfair Display', serif; /* Updated font */
+            font-size: 16px;
+        }
+
+        .ingredients {
+            margin-top: 20px;
+            display: none;
             text-align: center;
-            padding: 20px;
-            background-color: #f8f8f8;
-            margin-top: 50px;
-            font-size: 14px;
         }
 
-        .footer-social a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #333;
+        .spice.expanded .ingredients {
+            display: block;
+            color: #fff;
         }
 
-        .footer-social a:hover {
-            color: #6b8e23;
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .spice.expanded .close-btn {
+            display: flex;
+        }
+
+        .close-btn:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .contact {
+            position: fixed;
+            bottom: -150px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 5px;
+            border-radius: 5px;
+            text-align: center;
+            z-index: 1000;
+            color: #fff;
+            font-size: 20px; /* Increased by 30% */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .contact p {
+            margin-bottom: 2px; /* Reduced space between text and image */
+        }
+
+        .contact img {
+            width: 200px; /* Increased by 20% */
+            height: auto;
+            margin-top: 0px; /* Removed unnecessary top margin */
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">BoundlessPlate</div>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#menu">Menu</a>
-            <a href="#story">Our Story</a>
-            <a href="#contact">Contact</a>
-        </nav>
+        <h1>Boundless Plate</h1>
     </header>
 
-    <section class="hero">
-        <h1>Welcome to BoundlessPlate</h1>
-        <p>A celebration of flavors, crafted with care from nature’s bounty.</p>
-        <button>Explore Our Menu</button>
-    </section>
-
-    <section id="menu" class="menu">
-        <h2>Our Creations</h2>
-        <div class="menu-items">
-            <div class="menu-item">
-                <img src="https://via.placeholder.com/300x200" alt="Seasonal Veggie Platter">
-                <h3>Seasonal Veggie Platter</h3>
-                <p>A medley of grilled organic vegetables, served with a zesty herb dip.</p>
+    <div class="content">
+        <h2>Our Collection</h2>
+        <div class="spices">
+            <div class="spice" data-name="Moringa Chutney Pudi" data-ingredients="Moringa Leaves, Lentils, Spices, Salt">
+                <img src="assets/product_pics/moringa.jpg" alt="moringa">
+                <p>Moringa Chutney Pudi</p>
+                <div class="ingredients">Ingredients: Moringa Leaves, Urad Dal, Red Chilli, Pepper, Salt, Asafoetida</div>
+                <button class="close-btn">&times;</button>
             </div>
-            <div class="menu-item">
-                <img src="https://via.placeholder.com/300x200" alt="Herbaceous Quinoa Bowl">
-                <h3>Herbaceous Quinoa Bowl</h3>
-                <p>Local greens, roasted vegetables, and quinoa, topped with a house-made dressing.</p>
+            <div class="spice" data-name="Horse Gram Chutney Pudi" data-ingredients="Horse Gram, Spices, Tamarind, Salt">
+                <img src="assets/product_pics/horse_gram.jpg" alt="horse gram">
+                <p>Horse Gram Chutney Pudi</p>
+                <div class="ingredients">Ingredients: Horse Gram, Channa dal, Pepper, Salt, Asafoetida</div>
+                <button class="close-btn">&times;</button>
             </div>
-            <div class="menu-item">
-                <img src="https://via.placeholder.com/300x200" alt="Artisan Flatbread">
-                <h3>Artisan Flatbread</h3>
-                <p>Made with organic flour and topped with seasonal produce.</p>
+            <div class="spice" data-name="Curry Leaf Chutney Pudi" data-ingredients="Curry Leaves, Spices, Lentils, Salt">
+                <img src="assets/product_pics/currey_leaf.jpg" alt="Curry leaf">
+                <p>Curry Leaf Chutney Pudi</p>
+                <div class="ingredients">Ingredients: Curry Leaves, Urad Dal, Tamarind, Til, Pepper, Salt, Asafoetida</div>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="spice" data-name="Ground Nut Pudi - Tamilnadu style" data-ingredients="Groundnuts, Tamarind, Spices, Salt">
+                <img src="assets/product_pics/grnd_nut_tn.jpg" alt="Ground Nut TN style">
+                <p>Ground Nut Pudi - Tamilnadu style</p>
+                <div class="ingredients">Ingredients: Groundnuts, Til, Chilli, Salt, Asafoetida</div>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="spice" data-name="Ground Nut Pudi - North Karnataka style" data-ingredients="Groundnuts, Garlic, Spices, Salt">
+                <img src="assets/product_pics/grnd_nut_nk.jpg" alt="Ground Nut NK style">
+                <p>Ground Nut Pudi - North Karnataka style</p>
+                <div class="ingredients">Ingredients: Groundnuts, Curry leaf, Chilli, Jeera, Jaggery, Salt</div>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="spice" data-name="Maharashtra style Kala Masala" data-ingredients="Coriander, Cumin, Spices, Chili">
+                <img src="assets/product_pics/kala_masala.jpg" alt="Kala masala">
+                <p>Maharashtra style Kala masala</p>
+                <div class="ingredients">Ingredients: Coriander, Jeera, Pepper, Cardamom</div>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="spice" data-name="Sambar Powder" data-ingredients="Lentils, Coriander, Spices, Tamarind">
+                <img src="assets/product_pics/sambar.jpg" alt="sambar">
+                <p>Sambar powder</p>
+                <div class="ingredients">Ingredients: Toor Dal, Channa Dal, Urad Dal, Coriander, Pepper, Jeera, Salt</div>
+                <button class="close-btn">&times;</button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <footer>
-        <p>&copy; 2024 BoundlessPlate. All rights reserved.</p>
-        <div class="footer-social">
-            <a href="#">Instagram</a> | <a href="#">Facebook</a>
-        </div>
-    </footer>
+    <div class="contact">
+        <img src="assets/whatsapp_contact.png" alt="WhatsApp Contact">
+    </div>
 
     <script>
-        document.querySelector('.hero button').addEventListener('click', () => {
-            document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+        const spicesContainer = document.querySelector('.spices');
+        const spices = document.querySelectorAll('.spice');
+
+        spices.forEach(spice => {
+            spice.addEventListener('click', () => {
+                spicesContainer.classList.add('shrink');
+                spices.forEach(s => {
+                    if (s !== spice) {
+                        s.classList.remove('expanded');
+                    }
+                });
+                spice.classList.add('expanded');
+            });
+        });
+
+        document.addEventListener('click', event => {
+            if (event.target.classList.contains('close-btn')) {
+                spicesContainer.classList.remove('shrink');
+                spices.forEach(spice => {
+                    spice.classList.remove('expanded');
+                });
+            }
         });
     </script>
 </body>
