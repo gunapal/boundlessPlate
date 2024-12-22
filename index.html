@@ -152,26 +152,40 @@
 
         .contact {
             position: fixed;
-            bottom: -150px;
+            bottom: 20px;
             right: 20px;
             background-color: rgba(0, 0, 0, 0.8);
-            padding: 5px;
-            border-radius: 5px;
+            padding: 10px;
+            border-radius: 10px;
             text-align: center;
             z-index: 1000;
             color: #fff;
-            font-size: 20px; /* Increased by 30% */
+            font-size: 18px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
         }
 
         .contact p {
-            margin-bottom: 2px; /* Reduced space between text and image */
+            margin-bottom: 2px;
         }
 
         .contact img {
-            width: 200px; /* Increased by 20% */
+            width: 200px;
             height: auto;
-            margin-top: 0px; /* Removed unnecessary top margin */
+            margin-top: 0px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .contact {
+                position: static;
+                margin: 20px auto;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+            }
+
+            .contact img {
+                display: block;
+                margin: 10px auto 0;
+            }
         }
     </style>
 </head>
